@@ -1,0 +1,111 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Comment index{% endblock %}
+{% block header %}
+    <style>
+        .mystar{
+            font-size: 25px !important;
+            color: #f9d933 !important;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title mb-3">{{ evenements.titre }} </strong>
+            </div>
+            <div class="card-body">
+                <div class="mx-auto d-block">
+                    <img class="rounded-circle mx-auto d-block" src="{{ asset('Upload/')}}{{ evenements.image }}"  width="350" alt="Card image cap">
+                    <h5 class="text-sm-center mt-2 mb-1"> De :{{ evenements.datedebut  ? evenements.datedebut|date('Y-m-d') : ''   }} à {{ evenements.datefin  ? evenements.datefin|date('Y-m-d') : ''}}    </h5>
+                    <div class="location text-sm-center"><i class="fa fa-map-marker"></i> {{ evenements.lieu }}</div>
+                    <div style="display: flex;">
+
+                        <span style="cursor:pointer" class="fa fa-star-o mystar"></span>
+                        <span style="cursor:pointer" class="fa fa-star-o mystar"></span>
+                        <span style="cursor:pointer" class="fa fa-star-o mystar"></span>
+                        <span style="cursor:pointer" class="fa fa-star-o mystar"></span>
+                        <span style="cursor:pointer" class="fa fa-star-o mystar"></span>
+                        &nbsp; &nbsp;&nbsp;&nbsp;
+                        <button id="btnVote" class="btn btn-primary">Vote</button>
+
+                    </div>
+                </div>
+                <hr>
+                <div class="card-text text-sm-left">
+                    {% for c in comments %}
+                        <b> {{ c.iduser.username }}</b><br>
+                        <b> {{ c.commentaire }}</b><br>
+                        {% if c.iduser.id == user.id %}
+                        <a href="{{ path('comment_edit', {'id': c.idcomment,'ide': c.idevenement.id}) }}">Edit</a>
+                        <a href="{{ path('comment_delete', {'id': c.idcomment,'ide': c.idevenement.id}) }}">delete</a>
+                        {% endif %}
+                        <br><br><br>
+
+                    {% endfor %}
+
+
+                </div>
+                <div class="card-text text-sm-center">
+                    {{ form_start(form ,{'attr': {'class': 'contact_form text-center'}}) }}
+
+                    {{ form_widget(form.commentaire , {'attr': {'class': 'form-control' , 'placeholder' : 'Commenter'}} ) }}
+                    <input type="submit" value="Commenter" class="btn-danger"/>
+                    {{ form_end(form) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="https://use.fontawesome.com/9fb4b83f9f.js"></script>
+<script>
+    // Starrr plugin (https://github.com/dobtco/starrr)
+    var __slice = [].slice;
+    $("#btnVote").click(function () {
+        var number = $(".fa-star").length;
+        alert("merci pour votre vote : "+number)
+        console.log({number});
+        var obj = {
+            "rate" :number,
+            "event" : {{ evenements.id }}
+        }
+        $.ajax({
+            url: '{{ path('rate_') }}',
+            type: 'post',
+            data: JSON.stringify(obj),
+            success: function (result) {
+                console.log(result);
+                fillStars(result-1);
+            }
+        });
+        console.log(number);
+    })
+
+    $(document).ready(function () {
+        $(".mystar").each(function (i,e) {
+            $(this).click(function () {
+
+                fillStars(i);
+            })
+        })
+        fillStars(Math.round({{ evenements.rate-1 }}));
+    });
+
+    function fillStars(index) {
+        $(".mystar").each(function (i,e) {
+            if(i<=index){
+                $(this).removeClass();
+                $(this).addClass("fa fa-star mystar");
+            }else{
+                $(this).removeClass();
+                $(this).addClass("fa fa-star-o mystar");
+            }
+        })
+    }
+</script>
+{% endblock %}

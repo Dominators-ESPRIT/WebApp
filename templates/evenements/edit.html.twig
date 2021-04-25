@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Evenements{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form ,{'attr': {'class': 'contact_form text-center'}}) }}
+    <div>
+        {{ form_widget(form.titre , {'attr': {'class': 'form-control' , 'placeholder' : 'Titre'}} ) }}
+
+    </div>
+
+    <div>
+        {{ form_widget(form.lieu , {'attr': {'class': 'form-control' , 'placeholder' : 'Adresse'}} ) }}
+
+    </div>
+    <div>
+        {{ form_widget(form.nbreplaces , {'attr': {'class': 'form-control' , 'placeholder' : 'description'}} ) }}
+
+    </div>
+    <div>
+        {{ form_widget(form.datedebut , {'attr': {'class': 'form-control' , 'placeholder' : 'Nombre de Place'}} ) }}
+
+    </div>
+    <div>
+        {{ form_widget(form.datefin , {'attr': {'class': 'form-control' , 'placeholder' : 'Nombre de Place'}} ) }}
+
+    </div>
+    <div>
+        {{ form_widget(form.file , {'attr': {'class': 'form-control' , 'placeholder' : 'Image'}} ) }}
+
+    </div>
+    <div>
+        {{ form_widget(form.file , {'attr': {'class': 'form-control' , 'placeholder' : 'Image'}} ) }}<br><br>
+
+    </div>
+
+    <input type="submit" value="Enregistrer" class="btn-danger"/>
+
+    {{ form_end(form) }}
+
+
+{% endblock %}

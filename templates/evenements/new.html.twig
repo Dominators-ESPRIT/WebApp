@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Evenements{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form ,{'attr': {'class': 'contact_form text-center'}}) }}
+    <div>
+        {{ form_widget(form.titre , {'attr': {'class': 'form-control' , 'placeholder' : 'Titre'}} ) }}
+        {{ form_errors(form.titre) }}
+    </div>
+
+    <div>
+        {{ form_widget(form.lieu , {'attr': {'class': 'form-control' , 'placeholder' : 'Adresse'}} ) }}
+        {{ form_errors(form.lieu) }}
+    </div>
+    <div>
+        {{ form_widget(form.nbreplaces , {'attr': {'class': 'form-control' , 'placeholder' : 'Nombre de Place'}} ) }}
+        {{ form_errors(form.nbreplaces) }}
+    </div>
+    <div>
+        {{ form_widget(form.datedebut , {'attr': {'class': 'form-control' , 'placeholder' : 'Nombre de Place'}} ) }}
+
+    </div>
+    <div>
+        {{ form_widget(form.datefin , {'attr': {'class': 'form-control' , 'placeholder' : 'Nombre de Place'}} ) }}
+
+    </div>
+    <div>
+        {{ form_widget(form.file , {'attr': {'class': 'form-control' , 'placeholder' : 'Image'}} ) }}
+
+    </div>
+
+
+    <input type="submit" value="Enregistrer" class="btn-danger"/>
+
+    {{ form_end(form) }}
+
+
+    <script>
+        const form= document.getElementById('form');
+        const errorElement= document.getElementById('errorElement');
+        var now = new Date();
+        form.addEventListener('submit',(e)=> {
+            let message = [];
+            const year= document.getElementById('evenements_datedebut_year').value;
+            const month= document.getElementById('evenements_datedebut_month').value;
+            const day= document.getElementById('evenements_datedebut_day').value;
+            const yearf= document.getElementById('evenements_datefin_year').value;
+            const monthf= document.getElementById('evenements_datefin_month').value;
+            const dayf= document.getElementById('evenements_datefin_day').value;
+            // var datef = new Date(document.getElementById('evenements_datefin').value);
+            //var date = new Date(document.getElementById('evenements_datedebut').value);
+
+            var date = new Date(year, month, day); // months are 0-indexed but years and dates aren't.
+            var datef = new Date(yearf, monthf, dayf);
+            console.log(date , ' ', now)
+
+            if((date < now)|| (date > datef)){
+                swal("Oops...","Valider votre date ","error" );
+                message.push('Vérifier Votre date')
+            }
+            if(message.length> 0){
+                e.preventDefault();
+                errorElement.innerText = message.join(', ')
+            }
+        })
+    </script>
+
+{% endblock %}
+{% block script %}
+
+
+{% endblock %}
