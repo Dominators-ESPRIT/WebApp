@@ -1,0 +1,41 @@
+{% extends 'artiste.html.twig' %}
+
+{% block title %}New Message{% endblock %}
+
+{% block body %}
+    <h1>Create new Message</h1>
+
+
+    <section id="main-content">
+        <section class="wrapper">
+
+
+            {{ form_start(form ,{'attr': {'class': 'contact_form text-center'}}) }}
+
+            <div>
+                {{ form_widget(form.name , {'attr': {'class': 'form-control' , 'placeholder' : 'Username'}} ) }}
+
+            </div>
+
+            <div>
+                {{ form_widget(form.email , {'attr': {'class': 'form-control' , 'placeholder' : 'Email'}} ) }}
+
+            </div>
+            <div>
+                {{ form_widget(form.phone , {'attr': {'class': 'form-control' , 'placeholder' : 'Phone'}} ) }}
+
+            </div>
+            <div>
+                {{ form_widget(form.message , {'attr': {'class': 'form-control' , 'placeholder' : 'Message'}} ) }}
+
+            </div>
+
+            <button class="btn btn-success" >{{ button_label|default('Save') }}</button>
+            {{ form_end(form) }}
+
+
+        </section>
+    </section>
+
+
+{% endblock %}

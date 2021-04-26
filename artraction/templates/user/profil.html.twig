@@ -1,0 +1,50 @@
+{% extends 'client.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <strong>Compte</strong>
+        </div>
+        <div class="card-body card-block">
+            <form action="changedata" method="post" enctype="multipart/form-data" class="form-horizontal">
+
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">username</label></div>
+                    <div class="col-12 col-md-9"><input type="text"  value="{{ app.user.username }}" id="text-input" name="username" placeholder="Text" class="form-control"><small class="form-text text-muted"></small></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="email-input" class=" form-control-label">Email </label></div>
+                    <div class="col-12 col-md-9"><input type="email" value="{{ app.user.email }}"id="email-input" name="email-input" placeholder="Enter Email" class="form-control"><small class="help-block form-text">Please enter your email</small></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="password-input" class=" form-control-label">Password</label></div>
+                    <div class="col-12 col-md-9"><input type="password" value="{{ app.user.password }}" id="password-input" name="password-input" placeholder="Password" class="form-control"><small class="help-block form-text">Please enter  password</small></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Numero</label></div>
+                    <div class="col-12 col-md-9"><input type="text"  value="{{ app.user.numero }}" id="text-input"  placeholder="Text" class="form-control"><small class="form-text text-muted"></small></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Age</label></div>
+                    <div class="col-12 col-md-9"><input type="text"  value="{{ app.user.age }}" id="text-input"  placeholder="Text" class="form-control"><small class="form-text text-muted"></small></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Adresse</label></div>
+                    <div class="col-12 col-md-9"><input type="text"  value="{{ app.user.addresse }}" id="text-input"  placeholder="Text" class="form-control"><small class="form-text text-muted"></small></div>
+                </div>
+
+
+
+
+<input type="submit">
+
+
+
+
+            </form>
+        </div>
+
+    </div
+{% endblock %}
