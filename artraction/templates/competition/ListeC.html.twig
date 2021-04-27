@@ -1,0 +1,34 @@
+
+
+{% block body %}
+
+
+    <h1 align = "center"> liste des compétitions</h1><hr>
+    <table class="table">
+        <thead>
+        <tr>
+
+            <th>Nom</th>
+            <th>Theme</th>
+            <th>DateDebut</th>
+            <th>DateFin</th>
+            <th>Type</th>
+
+        </tr>
+        </thead>
+        <tbody  id="hi">
+        {% for competition in competitions %}
+            <tr>
+
+                <td>{{ competition.nom }}</td>
+                <td>{{ competition.theme }}</td>
+                <td>{{ competition.dateDebut ? competition.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ competition.dateFin ? competition.dateFin|date('Y-m-d') : '' }}</td>
+                <td>{{ competition.type }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OeuvreCompetition index{% endblock %}
+
+{% block body %}
+    <h1>OeuvreCompetition index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for oeuvre_competition in oeuvre_competitions %}
+            <tr>
+                <td>{{ oeuvre_competition.id }}</td>
+                <td>{{ oeuvre_competition.description }}</td>
+                <td>{{ oeuvre_competition.image }}</td>
+                <td>
+                    <a href="{{ path('oeuvre_competition_show', {'id': oeuvre_competition.id}) }}">show</a>
+                    <a href="{{ path('oeuvre_competition_edit', {'id': oeuvre_competition.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('oeuvre_competition_new') }}">Create new</a>
+{% endblock %}

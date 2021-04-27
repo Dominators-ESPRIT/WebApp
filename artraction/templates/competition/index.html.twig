@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Competition {% endblock %}
+
+{% block body %}
+    <h1>Competition </h1>
+    <input class="form-control" id="myInput" type="text" id="navbar-search-input" placeholder="Rechercher" aria-label="search" aria-describedby="search">
+
+    <table class="table">
+        <thead>
+        <tr>
+
+            <th>Nom</th>
+            <th>Theme</th>
+            <th>Date_debut</th>
+            <th>Date_fin</th>
+            <th>Type</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody id="hi">
+        {% for competition in competitions %}
+            <tr>
+
+                <td>{{ competition.nom }}</td>
+                <td>{{ competition.theme }}</td>
+                <td>{{ competition.dateDebut ? competition.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ competition.dateFin ? competition.dateFin|date('Y-m-d') : '' }}</td>
+                <td>{{ competition.type }}</td>
+                <td>
+                    <a href="{{ path('competition_show', {'id': competition.id}) }}"class="btn btn-facebook">Consulter</a>
+                    <a href="{{ path('competition_edit', {'id': competition.id}) }}"class="btn btn-facebook">Modifier</a>
+                    <a href="{{ path('competition_listeC') }}" class="btn btn-facebook">Imprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#hi tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+
+    <a href="{{ path('competition_new') }}"class="btn btn-facebook">Ajouter</a>
+{% endblock %}

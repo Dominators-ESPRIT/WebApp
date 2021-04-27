@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OeuvreCompetition{% endblock %}
+
+{% block body %}
+    <h1>OeuvreCompetition</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ oeuvre_competition.id }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ oeuvre_competition.description }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ asset('/uploads/oeuvre-images/' ~ oeuvre_competition.getImage()) }}" width="50"  /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('oeuvre_competition_index') }}">back to list</a>
+
+    <a href="{{ path('oeuvre_competition_edit', {'id': oeuvre_competition.id}) }}">edit</a>
+
+    {{ include('oeuvre_competition/_delete_form.html.twig') }}
+{% endblock %}

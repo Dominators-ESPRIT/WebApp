@@ -1,0 +1,58 @@
+{% extends 'user.html.twig' %}
+
+{% block title %}OeuvreCompetition index{% endblock %}
+
+{% block body %}
+    <h1>OeuvreCompetition </h1>
+    <style>
+        .card{
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6);
+            transition: 0.4s;
+            display: marker;
+            text-align: center;
+            font-size: 16px;
+            font-family: sans-serif;
+            float: left;
+            margin: 10px;
+
+        }
+    </style>
+    <table class="table">
+        <thead>
+        <tr>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for oeuvre_competition in oeuvre_competitions %}
+            <tr>
+
+
+
+            <div class="card" style="width: 18rem;" >
+                <img class="card-img-top" src="{{ asset('/uploads/oeuvre-images/' ~ oeuvre_competition.image) }}"  style="max-width: 100% ; max-height: 190px;"  alt="Card image cap">
+                <div class="card-body">
+
+                    <h5 class="card-title">Description: {{ oeuvre_competition.description }}</h5>
+
+
+                        <a href="{{ path('oeuvre_competition_show', {'id': oeuvre_competition.id})}}" class="btn btn-primary">Show</a>
+
+                </div>
+            </div>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('competition_artisteCC')  }}" class="btn btn-facebook">Retour</a>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+
+    </script>
+
+{% endblock %}
+
