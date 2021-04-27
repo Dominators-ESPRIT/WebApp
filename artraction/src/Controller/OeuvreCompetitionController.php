@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Competition;
+use App\Entity\User;
 use App\Entity\Vote;
 use App\Entity\OeuvreCompetition;
 use App\Form\OeuvreCompetitionType;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/oeuvre/competition")
+ * @Route("/oeuvre-competition")
  */
 class OeuvreCompetitionController extends AbstractController
 {
@@ -26,6 +27,23 @@ class OeuvreCompetitionController extends AbstractController
     {
         return $this->render('oeuvre_competition/artisteCOC.html.twig', [
             'oeuvre_competitions' => $oeuvreCompetitionRepository->findAll(),
+        ]);
+    }
+/**
+     * @Route("/artisteGOCC", name="artisteGOCC", methods={"GET"})
+     */
+    public function artisteGO(OeuvreCompetitionRepository $oeuvreCompetitionRepository): Response
+    {
+        $userRepository = $this->getDoctrine()->getRepository(User::class);
+        $user = $userRepository->findOneBy(array(
+            'id' => 1,
+        ));
+        $oeuvreCompetition = $oeuvreCompetitionRepository->findBy(array(
+            'user' => $user,
+        ));
+
+        return $this->render('oeuvre_competition/artisteGOC.html.twig', [
+            'oeuvre_competitions' => $oeuvreCompetition,
         ]);
     }
 
@@ -40,21 +58,29 @@ class OeuvreCompetitionController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/artisteGOC", name="artisteGOC", methods={"GET"})
+     * @Route("/{id}/user", name="artisteGOC", methods={"GET"})
      */
     public function artisteGOC(OeuvreCompetitionRepository $oeuvreCompetitionRepository): Response
     {
+
         return $this->render('oeuvre_competition/artisteGOC.html.twig', [
             'oeuvre_competitions' => $oeuvreCompetitionRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/new", name="oeuvre_competition_new", methods={"GET","POST"})
+     * @Route("/{id}/new", name="oeuvre_competition_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Competition $competition, Request $request): Response
     {
+        $userRepository = $this->getDoctrine()->getRepository(User::class);
+
+        $user = $userRepository->findOneBy(array(
+            'id' => 2,
+        ));
         $oeuvreCompetition = new OeuvreCompetition();
+        $oeuvreCompetition->setCompetition($competition);
+        $oeuvreCompetition->setUser($user);
         $form = $this->createForm(OeuvreCompetitionType::class, $oeuvreCompetition);
         $form->handleRequest($request);
 
@@ -81,7 +107,8 @@ class OeuvreCompetitionController extends AbstractController
             $entityManager->persist($oeuvreCompetition);
             $entityManager->flush();
 
-            return $this->redirectToRoute('oeuvre_competition_index');
+            return $this->redirectToRoute('oeuvreCompetition', array('id' => $oeuvreCompetition->getCompetition()->getId()));
+
         }
 
         return $this->render('oeuvre_competition/new.html.twig', [
@@ -133,6 +160,7 @@ class OeuvreCompetitionController extends AbstractController
             $oeuvresCompetition->username = $oeuvre->getUser()->getUsername();
             $oeuvresCompetition->vote = count($votes);
             $oeuvresCompetition->existVote = $existVote;
+
             $oeuvresCompetitionTab[]=$oeuvresCompetition;
         }
 
@@ -173,6 +201,6 @@ class OeuvreCompetitionController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('oeuvre_competition_index');
+        return $this->redirectToRoute('oeuvreCompetition', array('id' => $oeuvreCompetition->getCompetition()->getId()));
     }
 }

@@ -15,8 +15,8 @@ class OeuvreCompetitionType extends AbstractType
         $builder
             ->add('description')
             ->add('image',FileType::class,array('data_class' => null,'required' => true))
-            ->add('user')
-            ->add('competition')
+            ->remove('user')
+            ->remove('competition')
         ;
     }
 

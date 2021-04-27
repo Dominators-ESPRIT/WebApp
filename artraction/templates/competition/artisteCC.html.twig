@@ -20,8 +20,8 @@
                             <h4 class="card-title">Type:    {{ competition.type }}</h4>
                             <a href="{{ path('oeuvreCompetition',{'id': competition.id}) }}" class="btn btn-primary">Consulter</a>
 
-                            <a href="{{ path( 'artisteGOC',{'id': competition.id}) }}" class="btn btn-primary">Gérer oeuvre</a>
-                            <a href="{{ path('oeuvre_competition_new') }}" class="btn btn-primary">Participer</a>
+                            <a href="{{ path( 'artisteGOCC',{'id': competition.id}) }}" class="btn btn-primary">Gérer oeuvre</a>
+                            <a href="{{ path('oeuvre_competition_new',{'id': competition.id}) }}" class="btn btn-primary">Participer</a>
                         </div>
                     </div>
                 </div>

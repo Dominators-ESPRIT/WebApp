@@ -6,9 +6,14 @@ use App\Repository\CompetitionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=CompetitionRepository::class)
+ * * @UniqueEntity(
+ *     fields={"nom"},
+ *     message="This name is already in use on that host."
+ * )
  */
 class Competition
 {
