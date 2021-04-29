@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Competition;
 use App\Form\CompetitionType;
 use App\Repository\CompetitionRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,10 +31,19 @@ class CompetitionController extends AbstractController
     /**
      * @Route("/artisteCC", name="competition_artisteCC", methods={"GET"})
      */
-    public function artisteCC(CompetitionRepository $competitionRepository): Response
+    public function artisteCC(CompetitionRepository $competitionRepository,Request $request, PaginatorInterface $paginator): Response
     {
+
+        $donnees= $this->getDoctrine()->getRepository(Competition::class)->findAll();
+
+        $competitions =$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page',1),
+            3
+        );
+
         return $this->render('competition/artisteCC.html.twig', [
-            'competitions' => $competitionRepository->findAll(),
+            'competitions' => $competitions,
         ]);
     }
 
@@ -41,10 +51,18 @@ class CompetitionController extends AbstractController
     /**
      * @Route("/UserCC", name="competition_UserCC", methods={"GET"})
      */
-    public function UserCC(CompetitionRepository $competitionRepository): Response
+    public function UserCC(CompetitionRepository $competitionRepository,Request $request, PaginatorInterface $paginator): Response
     {
+
+        $donnees= $this->getDoctrine()->getRepository(Competition::class)->findAll();
+
+        $competitions =$paginator->paginate(
+            $donnees,
+            $request->query->getInt('page',1),
+            3
+        );
         return $this->render('competition/UserCC.html.twig', [
-            'competitions' => $competitionRepository->findAll(),
+            'competitions' => $competitions,
         ]);
     }
 

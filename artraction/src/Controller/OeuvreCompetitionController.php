@@ -36,7 +36,7 @@ class OeuvreCompetitionController extends AbstractController
     {
         $userRepository = $this->getDoctrine()->getRepository(User::class);
         $user = $userRepository->findOneBy(array(
-            'id' => 1,
+            'id' => 3,
         ));
         $oeuvreCompetition = $oeuvreCompetitionRepository->findBy(array(
             'user' => $user,
@@ -76,7 +76,7 @@ class OeuvreCompetitionController extends AbstractController
         $userRepository = $this->getDoctrine()->getRepository(User::class);
 
         $user = $userRepository->findOneBy(array(
-            'id' => 2,
+            'id' => 3,
         ));
         $oeuvreCompetition = new OeuvreCompetition();
         $oeuvreCompetition->setCompetition($competition);
@@ -134,7 +134,7 @@ class OeuvreCompetitionController extends AbstractController
         $voteRepository = $this->getDoctrine()->getRepository(Vote::class);
 
         $user = $userRepository->findOneBy(array(
-            'id' => 2,
+            'id' => 3,
         ));
         $oeuvreCompetition = $oeuvreCompetitionRepository->findBy(array(
             'competition' => $competition,

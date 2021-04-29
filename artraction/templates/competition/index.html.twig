@@ -30,7 +30,7 @@
                 <td>
                     <a href="{{ path('competition_show', {'id': competition.id}) }}"class="btn btn-facebook">Consulter</a>
                     <a href="{{ path('competition_edit', {'id': competition.id}) }}"class="btn btn-facebook">Modifier</a>
-                    <a href="{{ path('competition_listeC') }}" class="btn btn-facebook">Imprimer</a>
+
                 </td>
             </tr>
         {% else %}
@@ -58,4 +58,5 @@
 
 
     <a href="{{ path('competition_new') }}"class="btn btn-facebook">Ajouter</a>
+    <a href="{{ path('competition_listeC') }}" class="btn btn-facebook">Imprimer</a>
 {% endblock %}
