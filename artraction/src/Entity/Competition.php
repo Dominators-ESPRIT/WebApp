@@ -5,9 +5,10 @@ namespace App\Entity;
 use App\Repository\CompetitionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=CompetitionRepository::class)
@@ -26,8 +27,10 @@ class Competition
     private $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=255, nullable=false)
-     * @Assert\NotBlank(message="ce champs est obligatoire")<
+     * @Assert\NotBlank(message="Ce champs est obligatoire")<
      */
     private $nom;
 
@@ -39,17 +42,19 @@ class Competition
 
     /**
      * @ORM\Column(type="date", nullable=false)
+     * @Assert\NotBlank(message="Ce champs est obligatoire")<
      */
     private $date_debut;
 
     /**
      * @ORM\Column(type="date", nullable=false)
+     * @Assert\NotBlank(message="Ce champs est obligatoire")<
      */
     private $date_fin;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
-     * @Assert\NotBlank(message="ce champs est obligatoire")<
+     * @Assert\NotBlank(message="Ce champs est obligatoire")<
      */
     private $type;
 
